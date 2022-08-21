@@ -1,0 +1,17 @@
+<div class="grid" [ngStyle]="gridStyle">
+  <div class="grid-item">first</div>
+
+  <ng-container
+    *ngFor="let y of gridRealSize; first as isFirst; last as isLast; index as i"
+  >
+    <div class="grid-item" *ngFor="let x of gridGap">fill</div>
+    <app-item-filler
+      *ngIf="!isLast"
+      class="grid-item"
+      [index]="test(i)"
+      [isActive]="test(i) <= 3"
+      [fillValue]="test(i) === 3 ? 75 : 100"
+    ></app-item-filler>
+  </ng-container>
+  <div class="grid-item">last</div>
+</div>
