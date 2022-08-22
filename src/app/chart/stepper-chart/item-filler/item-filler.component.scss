@@ -15,3 +15,11 @@ div {
 
 .red {
 }
+
+.pointer {
+  position: absolute;
+  left: 100%;
+  margin: 0;
+  bottom: 15px;
+  transform: translateX(-50%);
+}

@@ -1,17 +1,50 @@
-<div class="grid" [ngStyle]="gridStyle">
-  <div class="grid-item">first</div>
-
-  <ng-container
-    *ngFor="let y of gridRealSize; first as isFirst; last as isLast; index as i"
+<div class="my-container">
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      height: 100%;
+      align-items: center;
+    "
   >
-    <div class="grid-item" *ngFor="let x of gridGap">fill</div>
-    <app-item-filler
-      *ngIf="!isLast"
-      class="grid-item"
-      [index]="test(i)"
-      [isActive]="test(i) <= 3"
-      [fillValue]="test(i) === 3 ? 75 : 100"
-    ></app-item-filler>
-  </ng-container>
-  <div class="grid-item">last</div>
+    <p *ngFor="let i of gridRealSize; first as isFirst">
+      <span *ngIf="!isFirst">{{ i }}%</span>
+    </p>
+  </div>
+  <div class="grid" [ngStyle]="gridStyle">
+    <div class="grid-item">first</div>
+
+    <ng-container
+      *ngFor="
+        let y of gridRealSize;
+        first as isFirst;
+        last as isLast;
+        index as i
+      "
+    >
+      <div class="grid-item" *ngFor="let x of gridGap">fill</div>
+      <app-item-filler
+        *ngIf="!isLast"
+        class="grid-item"
+        [index]="test(i)"
+        [isActive]="test(i) <= 3"
+        [fillValue]="test(i) === 3 ? 60 : 100"
+      ></app-item-filler>
+    </ng-container>
+    <div class="grid-item">last</div>
+  </div>
+  <div
+    [ngStyle]="{
+      'grid-column-start': '2',
+      display: 'flex',
+      'justify-content': 'space-between',
+      'align-items': 'center',
+      height: '100%'
+    }"
+  >
+    <p *ngFor="let i of gridRealSize; last as isLast">
+      <span *ngIf="!isLast">ریال {{ i * 100000 }}</span>
+    </p>
+  </div>
 </div>

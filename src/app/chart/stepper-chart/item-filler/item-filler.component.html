@@ -1,5 +1,9 @@
 <div>
-  <div [class.green]="isActive" [style]="{ width: fillValue + '%' }">
-    {{ index }}
+  <div
+    [class.green]="isActive"
+    [ngStyle]="{ width: fillValue + '%' }"
+    style="position: relative"
+  >
+    <p class="pointer" *ngIf="isSelected">Pointer</p>
   </div>
 </div>

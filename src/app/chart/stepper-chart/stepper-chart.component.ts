@@ -23,6 +23,10 @@ export class StepperChartComponent implements OnInit {
     .fill(0)
     .map((x, i) => i);
 
+  gridRealSize2 = Array(this.gridSize)
+    .fill(0)
+    .map((x, i) => i * 1000);
+
   get gridStyle() {
     return {
       'grid-template-columns': `repeat(${this.gridSize}, 1fr)`,

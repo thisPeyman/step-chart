@@ -16,6 +16,10 @@ export class ItemFillerComponent implements OnInit {
   @Input() isActive!: boolean;
   @Input() fillValue?: number;
 
+  get isSelected(): boolean {
+    return this.fillValue !== 100;
+  }
+
   constructor() {}
 
   ngOnInit(): void {}
