@@ -54,13 +54,6 @@ export class StepperChartComponent implements OnInit {
     return this._gridData.map((v) => v.percent).reverse();
   }
 
-  get gridStyle() {
-    return {
-      'grid-template-columns': `repeat(${this.gridSize}, 1fr)`,
-      'grid-template-rows': `repeat(${this.gridSize}, 1fr)`,
-    };
-  }
-
   private generateGridItems(value: GridData): GridItem[] {
     const data: GridItem[] = [];
 

@@ -7,7 +7,13 @@
     </p>
   </div>
 
-  <div class="grid" [ngStyle]="gridStyle">
+  <div
+    class="grid"
+    [ngStyle]="{
+      'grid-template-columns': 'repeat(' + gridSize + ', 1fr)',
+      'grid-template-rows': 'repeat(' + gridSize + ', 1fr)'
+    }"
+  >
     <!-- First Item -->
     <div class="grid-item"></div>
 
