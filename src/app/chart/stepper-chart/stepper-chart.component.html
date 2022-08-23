@@ -8,32 +8,32 @@
       align-items: center;
     "
   >
-    <p *ngFor="let i of gridRealSize; first as isFirst">
-      <span *ngIf="!isFirst">{{ i }}%</span>
+    <p></p>
+    <p *ngFor="let i of percents">
+      <span>{{ i }}%</span>
     </p>
   </div>
+
   <div class="grid" [ngStyle]="gridStyle">
-    <div class="grid-item">first</div>
+    <div class="grid-item"></div>
 
     <ng-container
       *ngFor="
-        let y of gridRealSize;
+        let item of gridItems;
         first as isFirst;
         last as isLast;
         index as i
       "
     >
-      <div class="grid-item" *ngFor="let x of gridGap">fill</div>
-      <app-item-filler
-        *ngIf="!isLast"
-        class="grid-item"
-        [index]="test(i)"
-        [isActive]="test(i) <= 3"
-        [fillValue]="test(i) === 3 ? 60 : 100"
-      ></app-item-filler>
+      <div class="grid-item" *ngFor="let x of gridFillerCount"></div>
+      <app-item-filler class="grid-item" [itemDetail]="item"></app-item-filler>
     </ng-container>
-    <div class="grid-item">last</div>
+    <!-- For Filling last grid items -->
+    <div class="grid-item" *ngFor="let x of gridFillerCount"></div>
+
+    <div class="grid-item"></div>
   </div>
+
   <div
     [ngStyle]="{
       'grid-column-start': '2',
@@ -43,8 +43,9 @@
       height: '100%'
     }"
   >
-    <p *ngFor="let i of gridRealSize; last as isLast">
-      <span *ngIf="!isLast">ریال {{ i * 100000 }}</span>
+    <p *ngFor="let i of prices; last as isLast">
+      <span>ریال {{ i | number }}</span>
     </p>
+    <p></p>
   </div>
 </div>

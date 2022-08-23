@@ -1,15 +1,18 @@
 .my-container {
-  margin: 100px 300px;
+  margin: 100px auto;
   overflow: hidden;
   display: grid;
   grid-template-columns: 30px auto;
   grid-template-rows: auto 30px;
   align-items: flex-end;
+  width: 700px;
+  height: 400px;
 }
 
 .grid {
   display: grid;
-  margin-top: -30px;
+  width: 100%;
+  height: 100%;
 
   background-color: rgba(gray, 0.6);
   column-gap: 1px;
