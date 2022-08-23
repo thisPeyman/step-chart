@@ -6,6 +6,13 @@ import {
 } from '@angular/core';
 import { GridItem } from '../_models/grid-item.interface';
 
+enum FillStates {
+  EMPTY = 0,
+  A_LITTLE = 2,
+  A_QUARTER = 25,
+  FULL = 100,
+}
+
 @Component({
   selector: 'app-item-filler',
   templateUrl: './item-filler.component.html',
@@ -14,41 +21,53 @@ import { GridItem } from '../_models/grid-item.interface';
 })
 export class ItemFillerComponent implements OnInit {
   fillValue!: number;
+  item!: GridItem;
+
+  constructor() {}
+
+  ngOnInit(): void {}
 
   @Input() set itemDetail(value: GridItem) {
-    const { currentValue, endPrice, startPrice } = value;
+    this.item = value;
+    this.calculateFilledValue(value);
+  }
 
-    if (!endPrice) {
-      if (currentValue > startPrice) {
-        this.fillValue = 25;
-      } else if (currentValue === startPrice) {
-        this.fillValue = 2;
-      } else {
-        this.fillValue = 0;
-      }
-      return;
-    }
-
-    if (currentValue === startPrice) {
-      this.fillValue = 2;
-      return;
-    }
-
-    if (currentValue > startPrice && currentValue <= endPrice) {
-      this.fillValue =
-        ((currentValue - startPrice) / (endPrice - startPrice)) * 100;
-      return;
-    }
-
-    if (currentValue < startPrice) this.fillValue = 0;
-    if (currentValue > endPrice) this.fillValue = 100;
+  get priceToNextLevel(): number {
+    return this.item.endPrice! - this.item.currentValue;
   }
 
   get hasPointer(): boolean {
     return this.fillValue !== 100 && this.fillValue !== 0;
   }
 
-  constructor() {}
+  private calculateFilledValue({
+    currentValue,
+    endPrice,
+    startPrice,
+  }: Pick<GridItem, 'currentValue' | 'startPrice' | 'endPrice'>): void {
+    const { A_LITTLE, A_QUARTER, EMPTY, FULL } = FillStates;
 
-  ngOnInit(): void {}
+    if (!endPrice) {
+      if (currentValue > startPrice) {
+        this.fillValue = A_QUARTER;
+      } else if (currentValue === startPrice) {
+        this.fillValue = A_LITTLE;
+      } else {
+        this.fillValue = EMPTY;
+      }
+      return;
+    }
+
+    if (currentValue === startPrice) {
+      this.fillValue = A_LITTLE;
+    }
+
+    if (currentValue > startPrice && currentValue <= endPrice) {
+      this.fillValue =
+        ((currentValue - startPrice) / (endPrice - startPrice)) * 100;
+    }
+
+    if (currentValue < startPrice) this.fillValue = EMPTY;
+    if (currentValue > endPrice) this.fillValue = FULL;
+  }
 }

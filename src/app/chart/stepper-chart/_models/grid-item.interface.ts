@@ -3,4 +3,6 @@ export interface GridItem {
   endPrice: number | null;
   currentValue: number;
   index: number;
+  nextPercent: number | null;
+  isLast: boolean;
 }

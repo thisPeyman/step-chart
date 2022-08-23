@@ -4,6 +4,11 @@
     [ngStyle]="{ width: fillValue + '%' }"
     style="position: relative"
   >
-    <p class="pointer" *ngIf="hasPointer">Pointer</p>
+    <p class="pointer" *ngIf="hasPointer">
+      <span *ngIf="item.isLast">{{ item.currentValue | number }} ریال</span>
+      <span *ngIf="!item.isLast"
+        >{{ priceToNextLevel }} ریال مانده تا {{ item.nextPercent }} %</span
+      >
+    </p>
   </div>
 </div>

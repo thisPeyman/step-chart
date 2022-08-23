@@ -1,51 +1,32 @@
-<div class="my-container">
-  <div
-    style="
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-      height: 100%;
-      align-items: center;
-    "
-  >
+<div class="my-container" dir="ltr">
+  <div class="y-axis">
+    <!-- This is for making flex-box space-between work correctly -->
     <p></p>
-    <p *ngFor="let i of percents">
-      <span>{{ i }}%</span>
+    <p *ngFor="let percent of percents">
+      <span>{{ percent }}%</span>
     </p>
   </div>
 
   <div class="grid" [ngStyle]="gridStyle">
+    <!-- First Item -->
     <div class="grid-item"></div>
 
-    <ng-container
-      *ngFor="
-        let item of gridItems;
-        first as isFirst;
-        last as isLast;
-        index as i
-      "
-    >
-      <div class="grid-item" *ngFor="let x of gridFillerCount"></div>
+    <ng-container *ngFor="let item of gridItems">
+      <div class="grid-item" *ngFor="let filler of gridFillerCount"></div>
       <app-item-filler class="grid-item" [itemDetail]="item"></app-item-filler>
     </ng-container>
     <!-- For Filling last grid items -->
     <div class="grid-item" *ngFor="let x of gridFillerCount"></div>
 
+    <!-- Last Item -->
     <div class="grid-item"></div>
   </div>
 
-  <div
-    [ngStyle]="{
-      'grid-column-start': '2',
-      display: 'flex',
-      'justify-content': 'space-between',
-      'align-items': 'center',
-      height: '100%'
-    }"
-  >
-    <p *ngFor="let i of prices; last as isLast">
-      <span>ریال {{ i | number }}</span>
+  <div class="x-axis">
+    <p *ngFor="let price of prices">
+      <span>ریال {{ price | number }}</span>
     </p>
+    <!-- This is for making flex-box space-between work correctly -->
     <p></p>
   </div>
 </div>
