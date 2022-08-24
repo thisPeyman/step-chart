@@ -22,6 +22,11 @@ export class StepperChartComponent implements OnInit {
 
   public gridItems!: GridItem[];
 
+  public gridSize!: number;
+  public gridFillerCount!: number[];
+  public prices!: number[];
+  public percents!: number[];
+
   constructor() {}
 
   ngOnInit(): void {
@@ -35,23 +40,15 @@ export class StepperChartComponent implements OnInit {
     value.sort((a, b) => a.value - b.value);
     this._gridData = value;
 
+    this.calculateProperties(value);
     this.gridItems = this.generateGridItems(value);
   }
 
-  get gridFillerCount(): number[] {
-    return range(this.gridSize - 2);
-  }
-
-  get gridSize(): number {
-    return this._gridData.length;
-  }
-
-  get prices() {
-    return this._gridData.map((v) => v.value);
-  }
-
-  get percents() {
-    return this._gridData.map((v) => v.percent).reverse();
+  private calculateProperties(data: GridData): void {
+    this.gridSize = data.length;
+    this.gridFillerCount = this.range(this.gridSize - 2);
+    this.prices = data.map((v) => v.value);
+    this.percents = data.map((v) => v.percent).reverse();
   }
 
   private generateGridItems(value: GridData): GridItem[] {
@@ -75,5 +72,9 @@ export class StepperChartComponent implements OnInit {
 
     // css grid renders from top to bottom so we need to reverse our data
     return data.reverse();
+  }
+
+  private range(length: number): number[] {
+    return [...Array(length).keys()];
   }
 }
